@@ -6,6 +6,10 @@ import {
 }
 
 // Values
+pub fn benktander(Triangle, Pattern, Array[Double], iterations? : Int32) -> Estimate raise RunoffError
+
+pub fn bornhuetter_ferguson(Triangle, Pattern, Array[Double]) -> Estimate raise RunoffError
+
 pub fn chain_ladder(Triangle, Pattern) -> Estimate raise RunoffError
 
 pub fn development_factors(Triangle, average? : Average) -> Array[FactorStat] raise RunoffError
