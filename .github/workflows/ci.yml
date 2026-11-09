@@ -1,0 +1,63 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [wasm-gc, wasm, js, native]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned official MoonBit 0.10.18
+        shell: bash
+        run: |
+          set -euo pipefail
+          export MOON_HOME="$RUNNER_TEMP/moonbit-0.10.18"
+          export MOON_TOOLCHAIN_ROOT="$MOON_HOME"
+          echo "MOON_HOME=$MOON_HOME" >> "$GITHUB_ENV"
+          echo "MOON_TOOLCHAIN_ROOT=$MOON_TOOLCHAIN_ROOT" >> "$GITHUB_ENV"
+          mkdir -p "$MOON_HOME/lib"
+          curl --fail --location --retry 2 'https://cli.moonbitlang.com/binaries/0.10.18%2B6c83a7f62/moonbit-linux-x86_64.tar.gz' -o "$RUNNER_TEMP/moonbit.tar.gz"
+          curl --fail --location --retry 2 'https://cli.moonbitlang.com/cores/core-0.10.18%2B6c83a7f62.tar.gz' -o "$RUNNER_TEMP/core.tar.gz"
+          tar xf "$RUNNER_TEMP/moonbit.tar.gz" -C "$MOON_HOME"
+          tar xf "$RUNNER_TEMP/core.tar.gz" -C "$MOON_HOME/lib"
+          chmod +x "$MOON_HOME"/bin/* "$MOON_HOME/bin/internal/tcc"
+          export PATH="$MOON_HOME/bin:$PATH"
+          echo "$MOON_HOME/bin" >> "$GITHUB_PATH"
+          moon version --all
+          moonc -v | grep -F 'v0.10.18+6c83a7f62'
+          moon -C "$MOON_HOME/lib/core" bundle --warn-list -a --all
+      - name: Check version interface and formatting
+        run: |
+          python tools/check_toolchain.py
+          moon info
+          moon fmt --check
+          git diff --exit-code
+      - name: Strict check build and test
+        run: |
+          moon check --deny-warn --target ${{ matrix.target }}
+          moon build --deny-warn --target ${{ matrix.target }}
+          moon test --deny-warn --target ${{ matrix.target }}
+      - name: Run all downstream workflows
+        run: |
+          moon run examples/claims --target ${{ matrix.target }}
+          moon run examples/exposure --target ${{ matrix.target }}
+          moon run examples/review --target ${{ matrix.target }}
+          moon run cmd/moonrunoff --target ${{ matrix.target }} -- --request '{"triangle":[[100,150,180],[120,180],[140]]}'
+      - name: Rational differential and instrumented coverage
+        if: matrix.target == 'wasm-gc'
+        run: |
+          python tools/differential.py
+          moon test --deny-warn --enable-coverage
+          moon coverage report -- -f summary

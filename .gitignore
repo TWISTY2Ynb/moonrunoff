@@ -3,3 +3,6 @@
 /.mooncakes/
 *.exe
 __pycache__/
+
+*.coverage
+coverage/
