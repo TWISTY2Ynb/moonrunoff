@@ -5,7 +5,7 @@ fn main raise {
   )
   let p = @runoff.Pattern::fit(t)
   let e = @runoff.chain_ladder(t, p)
-  assert_eq(e.total_reserve(), 148.0)
+  assert_true((e.total_reserve() - 148.0).abs() < 1.0e-9)
   assert_true(e.reconcile().balanced)
   println(e.to_json())
 }

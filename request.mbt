@@ -1,4 +1,56 @@
 ///|
+fn integer_control(value : Json) -> Unit raise RunoffError {
+  match value {
+    Number(n, ..) => {
+      if !finite(n) || n < 0.0 || n > 1000.0 {
+        raise Parse("integer control outside 0..1000")
+      }
+      if n.to_int().to_double() != n {
+        raise Parse("integer controls cannot be fractional")
+      }
+    }
+    _ => raise Parse("integer control must be a number")
+  }
+}
+
+///|
+fn validate_integer_controls(
+  fields : Map[String, Json],
+) -> Unit raise RunoffError {
+  for key in ["recent", "iterations"] {
+    match fields.get(key) {
+      Some(v) => integer_control(v)
+      None => ()
+    }
+  }
+  for key in ["excluded", "overrides"] {
+    match fields.get(key) {
+      None => ()
+      Some(Array(pairs)) => {
+        if pairs.length() > 8256 {
+          raise Parse("too many selection controls")
+        }
+        for pair in pairs {
+          match pair {
+            Array(columns) => {
+              if columns.length() != 2 {
+                raise Parse("selection controls require pairs")
+              }
+              integer_control(columns[0])
+              if key == "excluded" {
+                integer_control(columns[1])
+              }
+            }
+            _ => raise Parse("selection control must be a pair")
+          }
+        }
+      }
+      Some(_) => raise Parse("selection controls must be arrays")
+    }
+  }
+}
+
+///|
 fn[T : @json.FromJson] field(
   fields : Map[String, Json],
   key : String,
@@ -89,6 +141,7 @@ pub fn execute_request(text : String) -> String raise RunoffError {
     Object(fields) => fields
     _ => raise Parse("request must be an object")
   }
+  validate_integer_controls(fields)
   let action : String = optional_field(fields, "action", "reserve")
   let allowed = [
     "triangle", "incremental", "action", "average", "tail", "factors", "recent",
