@@ -30,7 +30,7 @@ pub fn bornhuetter_ferguson(
 }
 
 ///|
-/// Iteration zero returns the prior only if it is not below observed claims.
+/// Conceptual iteration zero is the prior; the public API starts at one.
 /// Each subsequent iteration feeds the previous ultimate into BF.
 pub fn benktander(
   triangle : Triangle,

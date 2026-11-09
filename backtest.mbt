@@ -86,7 +86,12 @@ pub fn backtest_score(
   let mut square = 0.0
   let mut observed = 0.0
   for c in cells {
-    let err = checked(c.error, "nonfinite holdout error")
+    nonnegative(c.predicted, "holdout prediction must be finite nonnegative")
+    nonnegative(c.observed, "holdout observed must be finite nonnegative")
+    let err = checked(c.predicted - c.observed, "nonfinite holdout error")
+    if c.error != err {
+      raise Value("holdout error differs from prediction minus observation")
+    }
     bias = checked(bias + err, "holdout bias overflow")
     absolute = checked(absolute + err.abs(), "holdout absolute error overflow")
     square = checked(
