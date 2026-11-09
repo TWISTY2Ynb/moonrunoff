@@ -40,6 +40,17 @@ pub(all) struct FactorStat {
 } derive(@debug.Debug)
 pub fn FactorStat::to_repr(Self) -> @debug.Repr
 
+pub struct Pattern {
+  // private fields
+}
+pub fn Pattern::cumulative_factors(Self) -> Array[Double]
+pub fn Pattern::factors(Self) -> Array[Double]
+pub fn Pattern::fit(Triangle, average? : Average, tail? : Double) -> Self raise RunoffError
+pub fn Pattern::new(Array[Double], tail? : Double) -> Self raise RunoffError
+pub fn Pattern::order(Self) -> Int32
+pub fn Pattern::reported_fraction(Self, Int32) -> Double raise RunoffError
+pub fn Pattern::tail(Self) -> Double
+
 pub struct Triangle {
   // private fields
 }
