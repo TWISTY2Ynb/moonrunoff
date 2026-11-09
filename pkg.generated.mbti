@@ -24,6 +24,10 @@ pub fn development_factors(Triangle, average? : Average) -> Array[FactorStat] ra
 
 pub fn diagnostics_json(Triangle, Pattern) -> String raise RunoffError
 
+pub fn execute_request(String) -> String raise RunoffError
+
+pub fn execute_request_result(String) -> String
+
 pub fn factor_sensitivity(Triangle, Pattern, shock? : Double) -> Array[StressResult] raise RunoffError
 
 pub fn fit_summary(Triangle, Pattern) -> FitSummary raise RunoffError
