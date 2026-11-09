@@ -171,6 +171,7 @@ pub fn Triangle::at_calendar(Self, Int32) -> Self raise RunoffError
 pub fn Triangle::calendar_totals(Self) -> Array[Double] raise RunoffError
 pub fn Triangle::cumulative(Self) -> Array[Array[Double]]
 pub fn Triangle::development_totals(Self) -> Array[Double] raise RunoffError
+pub fn Triangle::from_csv(String, incremental? : Bool) -> Self raise RunoffError
 pub fn Triangle::from_incremental(Array[Array[Double]]) -> Self raise RunoffError
 pub fn Triangle::from_json(String, incremental? : Bool) -> Self raise RunoffError
 pub fn Triangle::incremental(Self) -> Array[Array[Double]]
@@ -179,6 +180,7 @@ pub fn Triangle::new(Array[Array[Double]]) -> Self raise RunoffError
 pub fn Triangle::observed_count(Self) -> Int32
 pub fn Triangle::order(Self) -> Int32
 pub fn Triangle::scale(Self, Double) -> Self raise RunoffError
+pub fn Triangle::to_csv(Self, incremental? : Bool) -> String
 pub fn Triangle::to_json(Self, incremental? : Bool) -> String
 
 // Type aliases
