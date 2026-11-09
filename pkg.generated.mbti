@@ -16,6 +16,10 @@ pub fn chain_ladder(Triangle, Pattern) -> Estimate raise RunoffError
 
 pub fn development_factors(Triangle, average? : Average) -> Array[FactorStat] raise RunoffError
 
+pub fn fit_summary(Triangle, Pattern) -> FitSummary raise RunoffError
+
+pub fn pair_diagnostics(Triangle, Pattern) -> Array[PairDiagnostic] raise RunoffError
+
 pub fn selected_factors(Triangle, average? : Average, recent? : Int32, excluded? : Array[(Int32, Int32)], overrides? : Array[(Int32, Double)]) -> Array[FactorStat] raise RunoffError
 
 // Errors
@@ -67,6 +71,15 @@ pub(all) struct FactorStat {
 } derive(@debug.Debug)
 pub fn FactorStat::to_repr(Self) -> @debug.Repr
 
+pub(all) struct FitSummary {
+  pairs : Int32
+  zero_bases : Int32
+  mean_absolute_residual : Double
+  root_mean_square_residual : Double
+  maximum_absolute_residual : Double
+} derive(@debug.Debug)
+pub fn FitSummary::to_repr(Self) -> @debug.Repr
+
 pub(all) struct OriginEstimate {
   origin : Int32
   age : Int32
@@ -75,6 +88,17 @@ pub(all) struct OriginEstimate {
   reserve : Double
 } derive(@debug.Debug)
 pub fn OriginEstimate::to_repr(Self) -> @debug.Repr
+
+pub(all) struct PairDiagnostic {
+  origin : Int32
+  age : Int32
+  base : Double
+  observed : Double
+  expected : Double
+  residual : Double
+  ratio : Double?
+} derive(@debug.Debug)
+pub fn PairDiagnostic::to_repr(Self) -> @debug.Repr
 
 pub struct Pattern {
   // private fields
