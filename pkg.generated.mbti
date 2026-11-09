@@ -84,11 +84,13 @@ pub struct Estimate {
   // private fields
 }
 pub fn Estimate::calendar_payments(Self) -> Array[Double] raise RunoffError
+pub fn Estimate::discounted_reserves(Self, Array[Double]) -> Array[Double] raise RunoffError
 pub fn Estimate::estimator(Self) -> String
 pub fn Estimate::origins(Self) -> Array[OriginEstimate]
 pub fn Estimate::pattern(Self) -> Pattern
 pub fn Estimate::payments(Self) -> Array[Payment] raise RunoffError
 pub fn Estimate::projected_cumulative(Self, Triangle) -> Array[Array[Double]] raise RunoffError
+pub fn Estimate::reconcile(Self, relative_tolerance? : Double) -> Reconciliation raise RunoffError
 pub fn Estimate::to_csv(Self) -> String
 pub fn Estimate::to_json(Self) -> String raise RunoffError
 pub fn Estimate::total_latest(Self) -> Double raise RunoffError
@@ -165,6 +167,18 @@ pub(all) struct Payment {
   is_tail : Bool
 } derive(@debug.Debug)
 pub fn Payment::to_repr(Self) -> @debug.Repr
+
+pub(all) struct Reconciliation {
+  latest : Double
+  ultimate : Double
+  reserve : Double
+  payment_total : Double
+  calendar_total : Double
+  maximum_origin_error : Double
+  tolerance : Double
+  balanced : Bool
+} derive(@debug.Debug)
+pub fn Reconciliation::to_repr(Self) -> @debug.Repr
 
 pub(all) struct StressResult {
   name : String
