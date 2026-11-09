@@ -16,7 +16,11 @@ pub fn cape_cod(Triangle, Pattern, Array[Double]) -> CapeCodResult raise RunoffE
 
 pub fn chain_ladder(Triangle, Pattern) -> Estimate raise RunoffError
 
+pub fn compare_stress(Triangle, Pattern, Pattern, name? : String) -> StressResult raise RunoffError
+
 pub fn development_factors(Triangle, average? : Average) -> Array[FactorStat] raise RunoffError
+
+pub fn factor_sensitivity(Triangle, Pattern, shock? : Double) -> Array[StressResult] raise RunoffError
 
 pub fn fit_summary(Triangle, Pattern) -> FitSummary raise RunoffError
 
@@ -27,6 +31,8 @@ pub fn pair_diagnostics(Triangle, Pattern) -> Array[PairDiagnostic] raise Runoff
 pub fn rolling_holdout(Triangle, average? : Average) -> Array[HoldoutCell] raise RunoffError
 
 pub fn selected_factors(Triangle, average? : Average, recent? : Int32, excluded? : Array[(Int32, Int32)], overrides? : Array[(Int32, Double)]) -> Array[FactorStat] raise RunoffError
+
+pub fn stress_pattern(Pattern, Array[Double], tail_multiplier? : Double) -> Pattern raise RunoffError
 
 // Errors
 pub(all) suberror RunoffError {
@@ -144,6 +150,15 @@ pub(all) struct Payment {
   is_tail : Bool
 } derive(@debug.Debug)
 pub fn Payment::to_repr(Self) -> @debug.Repr
+
+pub(all) struct StressResult {
+  name : String
+  base_reserve : Double
+  stressed_reserve : Double
+  change : Double
+  relative_change : Double?
+} derive(@debug.Debug)
+pub fn StressResult::to_repr(Self) -> @debug.Repr
 
 pub struct Triangle {
   // private fields
