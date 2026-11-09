@@ -8,6 +8,8 @@ import {
 // Values
 pub fn development_factors(Triangle, average? : Average) -> Array[FactorStat] raise RunoffError
 
+pub fn selected_factors(Triangle, average? : Average, recent? : Int32, excluded? : Array[(Int32, Int32)], overrides? : Array[(Int32, Double)]) -> Array[FactorStat] raise RunoffError
+
 // Errors
 pub(all) suberror RunoffError {
   Shape(String)
