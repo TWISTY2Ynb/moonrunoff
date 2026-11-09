@@ -37,3 +37,7 @@ MoonActuary围绕生命表和保单，Runoff围绕事故期×发展期损失；�
 [Python ChainLadder](https://github.com/casact/chainladder-python)（MPL-2.0）和[R ChainLadder](https://github.com/mages/ChainLadder)（GPL）证明成熟跨生态任务，不声称参赛者使用经验或访谈。原创公开数学方法，无源码/数据复制。验收以独立有理数oracle、安装参考对照、三工作流和四后端检查/测试/构建为准。
 
 交付前复核中央行为和注册表。检查范围内未发现成熟维护的非寿险赔款发展直接替代，不声称全球唯一或主办方认可。原始响应和限制私存。
+
+## 发布前反向复核（2026-11-09）
+
+再次读取完整注册表中 runoff/chainladder/Bornhuetter/Cape Cod/赔款/准备金相关项，仍仅本项目预留；instant runoff voting 为选举算法不同语义。GitHub language:MoonBit bornhuetter 返回 0；cape_cod 返回 20 个转义/终端/PDF 字符串处理命中，逐项核对仓库和路径，非赔款模型。moonrunoff 仓库查询返回 0。上述结果 incomplete_results=false，单页限100；原始响应保存在仓库外，不以零同名替代语义对照。最终功能与开发前核心范围一致。
