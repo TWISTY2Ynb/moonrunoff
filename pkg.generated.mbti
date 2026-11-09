@@ -10,6 +10,8 @@ pub fn benktander(Triangle, Pattern, Array[Double], iterations? : Int32) -> Esti
 
 pub fn bornhuetter_ferguson(Triangle, Pattern, Array[Double]) -> Estimate raise RunoffError
 
+pub fn cape_cod(Triangle, Pattern, Array[Double]) -> CapeCodResult raise RunoffError
+
 pub fn chain_ladder(Triangle, Pattern) -> Estimate raise RunoffError
 
 pub fn development_factors(Triangle, average? : Average) -> Array[FactorStat] raise RunoffError
@@ -35,6 +37,13 @@ pub(all) enum Average {
 pub fn Average::equal(Self, Self) -> Bool
 pub fn Average::not_equal(Self, Self) -> Bool
 pub fn Average::to_repr(Self) -> @debug.Repr
+
+pub struct CapeCodResult {
+  // private fields
+}
+pub fn CapeCodResult::adjusted_exposure(Self) -> Double
+pub fn CapeCodResult::estimate(Self) -> Estimate
+pub fn CapeCodResult::rate(Self) -> Double
 
 pub struct Estimate {
   // private fields
