@@ -6,6 +6,8 @@ import {
 }
 
 // Values
+pub fn backtest_json(Array[HoldoutCell]) -> String raise RunoffError
+
 pub fn backtest_score(Array[HoldoutCell]) -> BacktestScore raise RunoffError
 
 pub fn benktander(Triangle, Pattern, Array[Double], iterations? : Int32) -> Estimate raise RunoffError
@@ -20,6 +22,8 @@ pub fn compare_stress(Triangle, Pattern, Pattern, name? : String) -> StressResul
 
 pub fn development_factors(Triangle, average? : Average) -> Array[FactorStat] raise RunoffError
 
+pub fn diagnostics_json(Triangle, Pattern) -> String raise RunoffError
+
 pub fn factor_sensitivity(Triangle, Pattern, shock? : Double) -> Array[StressResult] raise RunoffError
 
 pub fn fit_summary(Triangle, Pattern) -> FitSummary raise RunoffError
@@ -31,6 +35,8 @@ pub fn pair_diagnostics(Triangle, Pattern) -> Array[PairDiagnostic] raise Runoff
 pub fn rolling_holdout(Triangle, average? : Average) -> Array[HoldoutCell] raise RunoffError
 
 pub fn selected_factors(Triangle, average? : Average, recent? : Int32, excluded? : Array[(Int32, Int32)], overrides? : Array[(Int32, Double)]) -> Array[FactorStat] raise RunoffError
+
+pub fn stress_json(Array[StressResult]) -> String raise RunoffError
 
 pub fn stress_pattern(Pattern, Array[Double], tail_multiplier? : Double) -> Pattern raise RunoffError
 
@@ -79,6 +85,7 @@ pub fn Estimate::origins(Self) -> Array[OriginEstimate]
 pub fn Estimate::pattern(Self) -> Pattern
 pub fn Estimate::payments(Self) -> Array[Payment] raise RunoffError
 pub fn Estimate::projected_cumulative(Self, Triangle) -> Array[Array[Double]] raise RunoffError
+pub fn Estimate::to_csv(Self) -> String
 pub fn Estimate::to_json(Self) -> String raise RunoffError
 pub fn Estimate::total_latest(Self) -> Double raise RunoffError
 pub fn Estimate::total_reserve(Self) -> Double raise RunoffError
