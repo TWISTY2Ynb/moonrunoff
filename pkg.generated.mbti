@@ -48,9 +48,11 @@ pub fn CapeCodResult::rate(Self) -> Double
 pub struct Estimate {
   // private fields
 }
+pub fn Estimate::calendar_payments(Self) -> Array[Double] raise RunoffError
 pub fn Estimate::estimator(Self) -> String
 pub fn Estimate::origins(Self) -> Array[OriginEstimate]
 pub fn Estimate::pattern(Self) -> Pattern
+pub fn Estimate::payments(Self) -> Array[Payment] raise RunoffError
 pub fn Estimate::total_latest(Self) -> Double raise RunoffError
 pub fn Estimate::total_reserve(Self) -> Double raise RunoffError
 pub fn Estimate::total_ultimate(Self) -> Double raise RunoffError
@@ -84,6 +86,15 @@ pub fn Pattern::new(Array[Double], tail? : Double) -> Self raise RunoffError
 pub fn Pattern::order(Self) -> Int32
 pub fn Pattern::reported_fraction(Self, Int32) -> Double raise RunoffError
 pub fn Pattern::tail(Self) -> Double
+
+pub(all) struct Payment {
+  origin : Int32
+  age : Int32
+  calendar : Int32
+  amount : Double
+  is_tail : Bool
+} derive(@debug.Debug)
+pub fn Payment::to_repr(Self) -> @debug.Repr
 
 pub struct Triangle {
   // private fields
