@@ -78,6 +78,7 @@ pub fn Estimate::estimator(Self) -> String
 pub fn Estimate::origins(Self) -> Array[OriginEstimate]
 pub fn Estimate::pattern(Self) -> Pattern
 pub fn Estimate::payments(Self) -> Array[Payment] raise RunoffError
+pub fn Estimate::projected_cumulative(Self, Triangle) -> Array[Array[Double]] raise RunoffError
 pub fn Estimate::to_json(Self) -> String raise RunoffError
 pub fn Estimate::total_latest(Self) -> Double raise RunoffError
 pub fn Estimate::total_reserve(Self) -> Double raise RunoffError
@@ -169,6 +170,7 @@ pub struct Triangle {
 pub fn Triangle::at(Self, Int32, Int32) -> Double raise RunoffError
 pub fn Triangle::at_calendar(Self, Int32) -> Self raise RunoffError
 pub fn Triangle::calendar_totals(Self) -> Array[Double] raise RunoffError
+pub fn Triangle::combine(Self, Self) -> Self raise RunoffError
 pub fn Triangle::cumulative(Self) -> Array[Array[Double]]
 pub fn Triangle::development_totals(Self) -> Array[Double] raise RunoffError
 pub fn Triangle::from_csv(String, incremental? : Bool) -> Self raise RunoffError
@@ -179,6 +181,7 @@ pub fn Triangle::latest(Self) -> Array[Double]
 pub fn Triangle::new(Array[Array[Double]]) -> Self raise RunoffError
 pub fn Triangle::observed_count(Self) -> Int32
 pub fn Triangle::order(Self) -> Int32
+pub fn Triangle::restate(Self, Array[Double]) -> Self raise RunoffError
 pub fn Triangle::scale(Self, Double) -> Self raise RunoffError
 pub fn Triangle::to_csv(Self, incremental? : Bool) -> String
 pub fn Triangle::to_json(Self, incremental? : Bool) -> String
