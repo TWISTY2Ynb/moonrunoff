@@ -6,6 +6,8 @@ import {
 }
 
 // Values
+pub fn backtest_score(Array[HoldoutCell]) -> BacktestScore raise RunoffError
+
 pub fn benktander(Triangle, Pattern, Array[Double], iterations? : Int32) -> Estimate raise RunoffError
 
 pub fn bornhuetter_ferguson(Triangle, Pattern, Array[Double]) -> Estimate raise RunoffError
@@ -18,7 +20,11 @@ pub fn development_factors(Triangle, average? : Average) -> Array[FactorStat] ra
 
 pub fn fit_summary(Triangle, Pattern) -> FitSummary raise RunoffError
 
+pub fn holdout(Triangle, Int32, average? : Average) -> Array[HoldoutCell] raise RunoffError
+
 pub fn pair_diagnostics(Triangle, Pattern) -> Array[PairDiagnostic] raise RunoffError
+
+pub fn rolling_holdout(Triangle, average? : Average) -> Array[HoldoutCell] raise RunoffError
 
 pub fn selected_factors(Triangle, average? : Average, recent? : Int32, excluded? : Array[(Int32, Int32)], overrides? : Array[(Int32, Double)]) -> Array[FactorStat] raise RunoffError
 
@@ -41,6 +47,15 @@ pub(all) enum Average {
 pub fn Average::equal(Self, Self) -> Bool
 pub fn Average::not_equal(Self, Self) -> Bool
 pub fn Average::to_repr(Self) -> @debug.Repr
+
+pub(all) struct BacktestScore {
+  count : Int32
+  bias : Double
+  mean_absolute_error : Double
+  root_mean_square_error : Double
+  weighted_absolute_percentage_error : Double?
+} derive(@debug.Debug)
+pub fn BacktestScore::to_repr(Self) -> @debug.Repr
 
 pub struct CapeCodResult {
   // private fields
@@ -79,6 +94,16 @@ pub(all) struct FitSummary {
   maximum_absolute_residual : Double
 } derive(@debug.Debug)
 pub fn FitSummary::to_repr(Self) -> @debug.Repr
+
+pub(all) struct HoldoutCell {
+  cutoff : Int32
+  origin : Int32
+  age : Int32
+  predicted : Double
+  observed : Double
+  error : Double
+} derive(@debug.Debug)
+pub fn HoldoutCell::to_repr(Self) -> @debug.Repr
 
 pub(all) struct OriginEstimate {
   origin : Int32
