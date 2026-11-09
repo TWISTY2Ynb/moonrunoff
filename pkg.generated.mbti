@@ -6,6 +6,8 @@ import {
 }
 
 // Values
+pub fn chain_ladder(Triangle, Pattern) -> Estimate raise RunoffError
+
 pub fn development_factors(Triangle, average? : Average) -> Array[FactorStat] raise RunoffError
 
 pub fn selected_factors(Triangle, average? : Average, recent? : Int32, excluded? : Array[(Int32, Int32)], overrides? : Array[(Int32, Double)]) -> Array[FactorStat] raise RunoffError
@@ -30,6 +32,16 @@ pub fn Average::equal(Self, Self) -> Bool
 pub fn Average::not_equal(Self, Self) -> Bool
 pub fn Average::to_repr(Self) -> @debug.Repr
 
+pub struct Estimate {
+  // private fields
+}
+pub fn Estimate::estimator(Self) -> String
+pub fn Estimate::origins(Self) -> Array[OriginEstimate]
+pub fn Estimate::pattern(Self) -> Pattern
+pub fn Estimate::total_latest(Self) -> Double raise RunoffError
+pub fn Estimate::total_reserve(Self) -> Double raise RunoffError
+pub fn Estimate::total_ultimate(Self) -> Double raise RunoffError
+
 pub(all) struct FactorStat {
   age : Int32
   factor : Double
@@ -39,6 +51,15 @@ pub(all) struct FactorStat {
   denominator : Double
 } derive(@debug.Debug)
 pub fn FactorStat::to_repr(Self) -> @debug.Repr
+
+pub(all) struct OriginEstimate {
+  origin : Int32
+  age : Int32
+  latest : Double
+  ultimate : Double
+  reserve : Double
+} derive(@debug.Debug)
+pub fn OriginEstimate::to_repr(Self) -> @debug.Repr
 
 pub struct Pattern {
   // private fields
