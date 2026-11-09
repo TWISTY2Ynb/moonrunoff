@@ -1,0 +1,33 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "TWISTY2Ynb/moonrunoff"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+
+// Errors
+pub(all) suberror RunoffError {
+  Shape(String)
+  Value(String)
+  Selection(String)
+  Numerical(String)
+  Parse(String)
+} derive(@debug.Debug)
+pub fn RunoffError::to_repr(Self) -> @debug.Repr
+
+// Types and methods
+pub struct Triangle {
+  // private fields
+}
+pub fn Triangle::at(Self, Int32, Int32) -> Double raise RunoffError
+pub fn Triangle::cumulative(Self) -> Array[Array[Double]]
+pub fn Triangle::latest(Self) -> Array[Double]
+pub fn Triangle::new(Array[Array[Double]]) -> Self raise RunoffError
+pub fn Triangle::observed_count(Self) -> Int32
+pub fn Triangle::order(Self) -> Int32
+
+// Type aliases
+
+// Traits
