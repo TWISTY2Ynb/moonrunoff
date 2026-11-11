@@ -41,3 +41,5 @@ MoonActuary围绕生命表和保单，Runoff围绕事故期×发展期损失；�
 ## 发布前反向复核（2026-11-09）
 
 再次读取完整注册表中 runoff/chainladder/Bornhuetter/Cape Cod/赔款/准备金相关项，仍仅本项目预留；instant runoff voting 为选举算法不同语义。GitHub language:MoonBit bornhuetter 返回 0；cape_cod 返回 20 个转义/终端/PDF 字符串处理命中，逐项核对仓库和路径，非赔款模型。moonrunoff 仓库查询返回 0。上述结果 incomplete_results=false，单页限100；原始响应保存在仓库外，不以零同名替代语义对照。最终功能与开发前核心范围一致。
+
+2026-11-11 补充独立语义验证：实际安装 chainladder 0.8.24，在自生成数据上完成 72 个四模型 CLI 对照、348 项逐事故期比较，详见验证方法。参考仅用于验证共同数学行为，未复制其源码或夹具。

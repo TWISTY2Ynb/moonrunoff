@@ -1,0 +1,4 @@
+chainladder==0.8.24
+numpy==2.2.6
+pandas==2.2.3
+sparse==0.17.0

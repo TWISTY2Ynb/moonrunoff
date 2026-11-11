@@ -21,6 +21,12 @@
 
 手算样本 [[100,150,180],[120,180],[140]]：因子 [1.5,1.2]，CL 最终赔款 [180,216,252]，准备金 [0,36,112]。留出测试替换未来观测而保持相同预测，检查无未来泄漏。
 
+## 成熟参考库对照
+
+`tools/reference_chainladder.py` 在独立 Python 3.12 环境使用 chainladder 0.8.24；`tools/reference-requirements.txt` 固定直接兼容依赖。最初最新 sparse 的内部接口与该版本不兼容，固定 sparse 0.17.0 后实际运行成功，未修改参考库源代码。复现命令：`python -m pip install -r tools/reference-requirements.txt`，再执行 `python tools/reference_chainladder.py`（MoonBit 在 PATH）。
+
+固定种子 20261111，6 个自生成年度三角，三种拟合和四模型，共 72 个 CLI 请求、348 项事故期最终赔款比较；最大相对误差 6.96240583614938e-16，阈值 1e-10。明确仅比较正值年度三角、tail=1、无配对排除、无趋势的共同语义；尾因子由上节 Fraction 独立测试验证。没有复制参考库的源码、注释、数据或测试夹具。此可选测试不增加 MoonBit 模块运行依赖。
+
 ## 覆盖率
 
 执行 `moon coverage clean`、`moon test --enable-coverage --deny-warn`、`moon coverage report -- -f summary`。本地一次实测为 649/768 个工具报告覆盖点，包含未作为单元测试执行的示例/CLI 入口，不把该值当行覆盖率或分支覆盖率；工具摘要未列出的文件也不能从此推定为零覆盖或全覆盖。CI 重新生成当前提交的摘要。覆盖率仅辅助，不替代独立预期和完整工作流执行。
