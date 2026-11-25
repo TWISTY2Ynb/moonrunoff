@@ -1,11 +1,12 @@
 ///|
+#derive(Debug)
 pub(all) struct OriginEstimate {
   origin : Int32
   age : Int32
   latest : Double
   ultimate : Double
   reserve : Double
-} derive(Debug)
+}
 
 ///|
 pub extend OriginEstimate with @debug.Debug::{to_repr}

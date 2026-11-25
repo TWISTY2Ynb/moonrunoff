@@ -1,12 +1,13 @@
 ///|
 /// Error categories are stable; messages add context, never change behavior.
+#derive(Debug)
 pub(all) suberror RunoffError {
   Shape(String)
   Value(String)
   Selection(String)
   Numerical(String)
   Parse(String)
-} derive(Debug)
+}
 
 ///|
 pub extend RunoffError with @debug.Debug::{to_repr}

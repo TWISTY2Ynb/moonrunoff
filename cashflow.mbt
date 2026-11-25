@@ -1,11 +1,12 @@
 ///|
+#derive(Debug)
 pub(all) struct Payment {
   origin : Int32
   age : Int32
   calendar : Int32
   amount : Double
   is_tail : Bool
-} derive(Debug)
+}
 
 ///|
 pub extend Payment with @debug.Debug::{to_repr}

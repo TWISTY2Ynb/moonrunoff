@@ -1,4 +1,5 @@
 ///|
+#derive(Debug)
 pub(all) struct Reconciliation {
   latest : Double
   ultimate : Double
@@ -8,7 +9,7 @@ pub(all) struct Reconciliation {
   maximum_origin_error : Double
   tolerance : Double
   balanced : Bool
-} derive(Debug)
+}
 
 ///|
 pub extend Reconciliation with @debug.Debug::{to_repr}

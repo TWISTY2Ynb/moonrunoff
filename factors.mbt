@@ -1,16 +1,18 @@
 ///|
 /// Three classical paired-observation estimators, without automatic trimming.
+#derive(Eq, Debug)
 pub(all) enum Average {
   Volume
   Simple
   Regression
-} derive(Eq, Debug)
+}
 
 ///|
 pub extend Average with @debug.Debug::{to_repr}
 
 ///|
 /// One development period's transparent fitted statistics.
+#derive(Debug)
 pub(all) struct FactorStat {
   age : Int32
   factor : Double
@@ -18,7 +20,7 @@ pub(all) struct FactorStat {
   skipped_zero : Int32
   numerator : Double
   denominator : Double
-} derive(Debug)
+}
 
 ///|
 pub extend FactorStat with @debug.Debug::{to_repr}

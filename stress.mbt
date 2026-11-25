@@ -1,11 +1,12 @@
 ///|
+#derive(Debug)
 pub(all) struct StressResult {
   name : String
   base_reserve : Double
   stressed_reserve : Double
   change : Double
   relative_change : Double?
-} derive(Debug)
+}
 
 ///|
 pub extend StressResult with @debug.Debug::{to_repr}

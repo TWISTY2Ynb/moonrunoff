@@ -2,7 +2,7 @@
 
 ## 工具链及平台
 
-基线：moonc v0.10.18+6c83a7f62，moon 0.1.20261028；主语言 MoonBit。Windows 本地已实际完成 wasm-gc、wasm、js 的严格 check/build/test 和三个工作流；native 的 check 通过，但本机缺少 MSVC C++/Windows SDK，不能把它描述成本地 native 构建或运行通过。Linux native 由公开四目标 CI 实测；交付以精确提交的实际 Actions 结果为准。
+当前验收基线：moonc v0.10.22+124d61d05，moon 0.1.20261119；主语言 MoonBit。0.10.22 将旧式 `derive(...)` 声明标记为 deprecated，并在 `--deny-warn` 下拒绝构建；源码现改用 `#derive(...)`。Windows 本地在本版本实际完成 wasm-gc、wasm、js 的严格 check/build/test 和三个工作流；native check 通过，但本机没有可用 C 编译器，故未完成 native build/test。CI 固定使用同版编译器，Linux native 结果以该精确提交的实际 Actions 为准。
 
 ## 核心功能路径
 
@@ -33,10 +33,14 @@
 
 ## 源码量及历史口径
 
-只计根目录实际生产 `.mbt`，排除 `_test.mbt`、`_wbtest.mbt`、生成接口、示例、薄 CLI、Python 工具、配置和文档；计物理行并另外列非空非注释行。发布前实测 1817 物理行，1580 非空非注释行，无填充。发布验收报告提供逐文件清单和实际提交摘要。
+只计根目录实际生产 `.mbt`，排除 `_test.mbt`、`_wbtest.mbt`、生成接口、示例、薄 CLI、Python 工具、配置和文档；计物理行并另外列非空非注释行。0.1.0 发布前实测 1817 物理行，1580 非空非注释行；0.1.1 派生语法迁移后为 1828 物理行，1591 非空非注释行，无填充。发布验收报告提供逐文件清单和实际提交摘要。
 
 历史按独立工程切片检查，原始数量与保守有效数量分开。初始 CLI 示例严格 Double 相等断言曾失败，后续改为容差断言；历史保留，保守计数不认领该失败切片为独立已验证成果。不会重写历史或通过空提交补数量。
 
 ## 结论边界
 
 查重是有界检索，不保证全球唯一；自检、CI 和安装验证均不是官方验收通过。没有性能排名、Mack 标准误、bootstrap、监管准确性或金融建议的声明。全部客户数据均由调用者负责，本项目测试数据为自生成。
+
+## 0.1.1 工具链回归
+
+`python -m unittest discover -s tools -p 'test_*.py'` 与同命令的 `python -O` 模式均检查最低版本边界、无效输出、缺失/失败编译器与成功路径。版本判断使用显式失败返回，不依赖可关闭的 Python 断言。生产 MoonBit 数值 API 未改变；四后端严格检查、构建、测试及全部示例由当前发布提交的 CI 复验。Windows 本地 native 未完成（系统缺 C 编译器，bundled TCC 亦无法编译该工具链 runtime），不据此声称 Windows native 已通过。

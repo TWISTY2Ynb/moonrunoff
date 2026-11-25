@@ -1,4 +1,5 @@
 ///|
+#derive(Debug)
 pub(all) struct HoldoutCell {
   cutoff : Int32
   origin : Int32
@@ -6,7 +7,7 @@ pub(all) struct HoldoutCell {
   predicted : Double
   observed : Double
   error : Double
-} derive(Debug)
+}
 
 ///|
 pub extend HoldoutCell with @debug.Debug::{to_repr}
@@ -63,13 +64,14 @@ pub fn rolling_holdout(
 }
 
 ///|
+#derive(Debug)
 pub(all) struct BacktestScore {
   count : Int32
   bias : Double
   mean_absolute_error : Double
   root_mean_square_error : Double
   weighted_absolute_percentage_error : Double?
-} derive(Debug)
+}
 
 ///|
 pub extend BacktestScore with @debug.Debug::{to_repr}

@@ -2,7 +2,7 @@
 
 MoonRunoff 用 MoonBit 实现累计已支付赔款三角、确定性准备金模型、未来支付分解和历史留出回测。准备金分析人员、暴露量数据工程师和模型复核人员可以复用同一组校验与数值 API，也可以通过 JSON 请求引擎集成到服务或命令行任务。代码采用 MIT 许可证。
 
-- 模块：`TWISTY2Ynb/moonrunoff@0.1.0`
+- 模块：`TWISTY2Ynb/moonrunoff@0.1.1`
 - [GitHub 源码](https://github.com/TWISTY2Ynb/moonrunoff)
 - [MoonCakes 中文说明及 API](https://mooncakes.io/docs/TWISTY2Ynb/moonrunoff)
 - [CI](https://github.com/TWISTY2Ynb/moonrunoff/actions/workflows/ci.yml)
@@ -20,13 +20,13 @@ MoonRunoff 用 MoonBit 实现累计已支付赔款三角、确定性准备金模
 
 ## 环境和安装
 
-需要 MoonBit **moonc 0.10.18 或更新版本**；验证基线为 `v0.10.18+6c83a7f62`，满足比赛的最低 0.10.16 要求。CI 固定下载官方同版本编译器及 core，避免 latest 漂移。运行 JavaScript 后端需要 Node.js 22；原生后端需要可用的 C 编译工具链。库只依赖随工具链提供的 `moonbitlang/core`。
+需要 MoonBit **moonc 0.10.22 或更新版本**；本次验收与 CI 固定在 `v0.10.22+124d61d05`。该版本采用当前派生语法，且满足比赛的最低 0.10.16 要求。CI 固定下载官方同版本编译器及 core，避免 latest 漂移。运行 JavaScript 后端需要 Node.js 22；原生后端需要可用的 C 编译工具链。库只依赖随工具链提供的 `moonbitlang/core`。
 
 在你的 MoonBit 项目目录运行：
 
 ```sh
 moon update
-moon add TWISTY2Ynb/moonrunoff@0.1.0
+moon add TWISTY2Ynb/moonrunoff@0.1.1
 ```
 
 在消费者包的 `moon.pkg` 中声明：

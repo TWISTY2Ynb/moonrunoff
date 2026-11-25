@@ -1,4 +1,5 @@
 ///|
+#derive(Debug)
 pub(all) struct PairDiagnostic {
   origin : Int32
   age : Int32
@@ -7,7 +8,7 @@ pub(all) struct PairDiagnostic {
   expected : Double
   residual : Double
   ratio : Double?
-} derive(Debug)
+}
 
 ///|
 pub extend PairDiagnostic with @debug.Debug::{to_repr}
@@ -48,13 +49,14 @@ pub fn pair_diagnostics(
 }
 
 ///|
+#derive(Debug)
 pub(all) struct FitSummary {
   pairs : Int32
   zero_bases : Int32
   mean_absolute_residual : Double
   root_mean_square_residual : Double
   maximum_absolute_residual : Double
-} derive(Debug)
+}
 
 ///|
 pub extend FitSummary with @debug.Debug::{to_repr}

@@ -45,32 +45,35 @@ pub fn stress_json(Array[StressResult]) -> String raise RunoffError
 pub fn stress_pattern(Pattern, Array[Double], tail_multiplier? : Double) -> Pattern raise RunoffError
 
 // Errors
+#derive(@debug.Debug)
 pub(all) suberror RunoffError {
   Shape(String)
   Value(String)
   Selection(String)
   Numerical(String)
   Parse(String)
-} derive(@debug.Debug)
+}
 pub fn RunoffError::to_repr(Self) -> @debug.Repr
 
 // Types and methods
+#derive(Eq, @debug.Debug)
 pub(all) enum Average {
   Volume
   Simple
   Regression
-} derive(Eq, @debug.Debug)
+}
 pub fn Average::equal(Self, Self) -> Bool
 pub fn Average::not_equal(Self, Self) -> Bool
 pub fn Average::to_repr(Self) -> @debug.Repr
 
+#derive(@debug.Debug)
 pub(all) struct BacktestScore {
   count : Int32
   bias : Double
   mean_absolute_error : Double
   root_mean_square_error : Double
   weighted_absolute_percentage_error : Double?
-} derive(@debug.Debug)
+}
 pub fn BacktestScore::to_repr(Self) -> @debug.Repr
 
 pub struct CapeCodResult {
@@ -97,6 +100,7 @@ pub fn Estimate::total_latest(Self) -> Double raise RunoffError
 pub fn Estimate::total_reserve(Self) -> Double raise RunoffError
 pub fn Estimate::total_ultimate(Self) -> Double raise RunoffError
 
+#derive(@debug.Debug)
 pub(all) struct FactorStat {
   age : Int32
   factor : Double
@@ -104,18 +108,20 @@ pub(all) struct FactorStat {
   skipped_zero : Int32
   numerator : Double
   denominator : Double
-} derive(@debug.Debug)
+}
 pub fn FactorStat::to_repr(Self) -> @debug.Repr
 
+#derive(@debug.Debug)
 pub(all) struct FitSummary {
   pairs : Int32
   zero_bases : Int32
   mean_absolute_residual : Double
   root_mean_square_residual : Double
   maximum_absolute_residual : Double
-} derive(@debug.Debug)
+}
 pub fn FitSummary::to_repr(Self) -> @debug.Repr
 
+#derive(@debug.Debug)
 pub(all) struct HoldoutCell {
   cutoff : Int32
   origin : Int32
@@ -123,18 +129,20 @@ pub(all) struct HoldoutCell {
   predicted : Double
   observed : Double
   error : Double
-} derive(@debug.Debug)
+}
 pub fn HoldoutCell::to_repr(Self) -> @debug.Repr
 
+#derive(@debug.Debug)
 pub(all) struct OriginEstimate {
   origin : Int32
   age : Int32
   latest : Double
   ultimate : Double
   reserve : Double
-} derive(@debug.Debug)
+}
 pub fn OriginEstimate::to_repr(Self) -> @debug.Repr
 
+#derive(@debug.Debug)
 pub(all) struct PairDiagnostic {
   origin : Int32
   age : Int32
@@ -143,7 +151,7 @@ pub(all) struct PairDiagnostic {
   expected : Double
   residual : Double
   ratio : Double?
-} derive(@debug.Debug)
+}
 pub fn PairDiagnostic::to_repr(Self) -> @debug.Repr
 
 pub struct Pattern {
@@ -159,15 +167,17 @@ pub fn Pattern::reported_fraction(Self, Int32) -> Double raise RunoffError
 pub fn Pattern::tail(Self) -> Double
 pub fn Pattern::to_json(Self) -> String
 
+#derive(@debug.Debug)
 pub(all) struct Payment {
   origin : Int32
   age : Int32
   calendar : Int32
   amount : Double
   is_tail : Bool
-} derive(@debug.Debug)
+}
 pub fn Payment::to_repr(Self) -> @debug.Repr
 
+#derive(@debug.Debug)
 pub(all) struct Reconciliation {
   latest : Double
   ultimate : Double
@@ -177,16 +187,17 @@ pub(all) struct Reconciliation {
   maximum_origin_error : Double
   tolerance : Double
   balanced : Bool
-} derive(@debug.Debug)
+}
 pub fn Reconciliation::to_repr(Self) -> @debug.Repr
 
+#derive(@debug.Debug)
 pub(all) struct StressResult {
   name : String
   base_reserve : Double
   stressed_reserve : Double
   change : Double
   relative_change : Double?
-} derive(@debug.Debug)
+}
 pub fn StressResult::to_repr(Self) -> @debug.Repr
 
 pub struct Triangle {
