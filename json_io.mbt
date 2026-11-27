@@ -3,7 +3,32 @@ fn parse_json_bounded(text : String) -> Json raise RunoffError {
   if text.length() > 1048576 {
     raise Parse("JSON input exceeds 1 Mi code units")
   }
-  @json.parse(text[:], max_nesting_depth=16, reject_duplicate_keys=true) catch {
+  // Bound containers before parsing; RC1 deprecates the parser depth label.
+  // Quotes and escaped quotes must not turn string contents into containers.
+  let mut depth = 0
+  let mut quoted = false
+  let mut escaped = false
+  for ch in text {
+    if quoted {
+      if escaped {
+        escaped = false
+      } else if ch == '\\' {
+        escaped = true
+      } else if ch == '"' {
+        quoted = false
+      }
+    } else if ch == '"' {
+      quoted = true
+    } else if ch == '[' || ch == '{' {
+      depth += 1
+      if depth > 16 {
+        raise Parse("JSON nesting depth exceeds 16")
+      }
+    } else if ch == ']' || ch == '}' {
+      depth -= 1
+    }
+  }
+  @json.parse(text[:], reject_duplicate_keys=true) catch {
     _ => raise Parse("invalid JSON syntax, duplicate key or nesting depth")
   }
 }

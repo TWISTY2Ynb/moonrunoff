@@ -24,3 +24,37 @@ test "strict JSON triangle and pattern roundtrip and rejection" {
     },
   )
 }
+
+///|
+test "bounded JSON RC parser preserves depth strings keys and input limits" {
+  let mut nested = "0"
+  for _ in 0..<16 {
+    nested = "[" + nested + "]"
+  }
+  let _ = parse_json_bounded(nested)
+  for bad in ["[" + nested + "]", "{\"x\":1,\"x\":2}", "[}", "\"unterminated"] {
+    assert_true(
+      try {
+        let _ = parse_json_bounded(bad)
+        false
+      } catch {
+        _ => true
+      },
+    )
+  }
+  // Many brackets inside a string are not container nesting.
+  let _ = parse_json_bounded(
+    Json::string("[[[[[[[[[[[[[[[[[[[\\\"{{{").stringify(),
+  )
+  // Exactly 1 Mi code units is permitted; the next unit is rejected first.
+  let boundary = " ".repeat(1048575) + "0"
+  let _ = parse_json_bounded(boundary)
+  assert_true(
+    try {
+      let _ = parse_json_bounded(boundary + " ")
+      false
+    } catch {
+      _ => true
+    },
+  )
+}

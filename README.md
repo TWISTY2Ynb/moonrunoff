@@ -2,7 +2,7 @@
 
 MoonRunoff 用 MoonBit 实现累计已支付赔款三角、确定性准备金模型、未来支付分解和历史留出回测。准备金分析人员、暴露量数据工程师和模型复核人员可以复用同一组校验与数值 API，也可以通过 JSON 请求引擎集成到服务或命令行任务。代码采用 MIT 许可证。
 
-- 模块：`TWISTY2Ynb/moonrunoff@0.1.2`
+- 模块：`TWISTY2Ynb/moonrunoff@0.1.3`
 - [GitHub 源码](https://github.com/TWISTY2Ynb/moonrunoff)
 - [MoonCakes 中文说明及 API](https://mooncakes.io/docs/TWISTY2Ynb/moonrunoff)
 - [CI](https://github.com/TWISTY2Ynb/moonrunoff/actions/workflows/ci.yml)
@@ -20,13 +20,15 @@ MoonRunoff 用 MoonBit 实现累计已支付赔款三角、确定性准备金模
 
 ## 环境和安装
 
-需要 MoonBit **moonc 0.10.22 或更新版本**；本项目当前发布与 CI 固定使用 MoonBit 1.0 RC 前工具链：`moonc v0.10.22+124d61d05`、`moon 0.1.20261119`、`moonrun 0.1.20261119`。CI 下载官方同版本编译器及 core，并逐项断言这三个工具版本，避免 latest 漂移。运行 JavaScript 后端需要 Node.js 22；原生后端需要可用的 C 编译工具链。库只依赖随工具链提供的 `moonbitlang/core`。
+需要 MoonBit **moonc 1.0.0-rc1 或更新版本**；本项目当前发布与 CI 固定使用 `moonc v1.0.0-rc1+3c0520448`、`moon 0.1.20261126`、`moonrun 0.1.20261126`。CI 下载官方同版本编译器及 core，并逐项断言这三个工具版本，避免 latest 漂移。运行 JavaScript 后端需要 Node.js 22；原生后端需要可用的 C 编译工具链。库只依赖随工具链提供的 `moonbitlang/core`。最低版本检查支持 RC 预发行版本，并在 Python 普通和 `-O` 模式下执行相同校验。
+
+MoonCakes 服务端独立选择构建环境；本项目的 CI 固定版本不代表服务端也使用相同版本。服务端实际行为以该精确发布版本的公开构建日志为准，未输出工具版本时不作版本一致性声明。
 
 在你的 MoonBit 项目目录运行：
 
 ```sh
 moon update
-moon add TWISTY2Ynb/moonrunoff@0.1.2
+moon add TWISTY2Ynb/moonrunoff@0.1.3
 ```
 
 在消费者包的 `moon.pkg` 中声明：

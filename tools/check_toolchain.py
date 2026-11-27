@@ -3,13 +3,24 @@ import re
 import subprocess
 import sys
 
-MINIMUM_VERSION = (0, 10, 22)
+MINIMUM_VERSION = (1, 0, 0, 2, 1)  # 1.0.0-rc1; alpha < beta < rc < stable
+_VERSION = re.compile(
+    r"\bv(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)"
+    r"(?:-(alpha|beta|rc)(0|[1-9]\d*))?"
+    r"(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?(?=\s|$)"
+)
 
 
 def validate_version(text):
-    match = re.search(r"\bv(\d+)\.(\d+)\.(\d+)(?=[+\s]|$)", text)
-    if not match or tuple(map(int, match.groups())) < MINIMUM_VERSION:
-        raise ValueError("MoonBit moonc >= 0.10.22 is required")
+    match = _VERSION.search(text)
+    if match:
+        major, minor, patch, stage, serial = match.groups()
+        version = (int(major), int(minor), int(patch),
+                   {"alpha": 0, "beta": 1, "rc": 2, None: 3}[stage],
+                   int(serial or 0))
+        if version >= MINIMUM_VERSION:
+            return
+    raise ValueError("MoonBit moonc >= 1.0.0-rc1 is required")
 
 
 def main():
